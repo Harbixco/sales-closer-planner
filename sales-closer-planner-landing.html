@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sales Closer Planner Made Easy — SC Multibiz</title>
+<meta name="description" content="An undated daily planner built for one job: keeping every call, follow-up, and commission in front of you so nothing slips through the cracks.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #151311;
+  --ink-soft: #4a443a;
+  --ink-muted: #787063;
+  --paper: #FAF7F2;
+  --paper-card: #FFFFFF;
+  --line: #E8E1D5;
+  --line-subtle: #F0EAE0;
+  
+  /* Brand Navy matching SCM Logo */
+  --navy-deep: #090A17;
+  --navy-dark: #0F1226;
+  --navy-surface: #171B38;
+  --navy-border: #262D58;
+  
+  /* Premium Gold matching SCM Logo */
+  --gold: #C59828;
+  --gold-hover: #AF841E;
+  --gold-soft: #D8AA3B;
+  --gold-light: #F7E7BA;
+  --gold-gradient: linear-gradient(135deg, #F3D488 0%, #C59828 50%, #9E7418 100%);
+  --gold-glow: rgba(197, 152, 40, 0.25);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-sm: 0 2px 8px rgba(15, 18, 38, 0.05);
+  --shadow-md: 0 8px 24px rgba(15, 18, 38, 0.08);
+  --shadow-lg: 0 18px 40px rgba(15, 18, 38, 0.12);
+  --shadow-dark: 0 20px 48px rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+p {
+  margin: 0 0 1.15em;
+  color: var(--ink-soft);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Layout Wrappers */
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.wrap-wide {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section {
+  padding: 72px 0;
+  position: relative;
+}
+
+.section.dark {
+  background: radial-gradient(circle at 50% 0%, var(--navy-surface) 0%, var(--navy-dark) 45%, var(--navy-deep) 100%);
+  color: #EDE8DF;
+  border-top: 1px solid var(--navy-border);
+  border-bottom: 1px solid var(--navy-border);
+}
+
+.section.dark h2, .section.dark h3 {
+  color: #FFFFFF;
+}
+
+.section.dark p {
+  color: #C3BDB0;
+}
+
+/* Header & Sticky Nav */
+.header-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 247, 242, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(232, 225, 213, 0.7);
+  transition: all 0.3s ease;
+}
+
+.nav-container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 8px rgba(197, 152, 40, 0.3);
+  border: 1.5px solid var(--gold);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--navy-deep);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-gradient);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px var(--gold-glow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(197, 152, 40, 0.35);
+}
+
+/* Hero Section */
+.hero {
+  padding: 60px 0 40px;
+  text-align: center;
+}
+
+.kicker-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #F3EBD8;
+  color: #8C6615;
+  border: 1px solid #E4D3AB;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  margin-bottom: 22px;
+}
+
+.kicker-pill::before {
+  content: "★";
+  font-size: 12px;
+  color: var(--gold);
+}
+
+.hero h1 {
+  font-size: 40px;
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+  color: var(--ink);
+}
+
+.hero h1 span.highlight {
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero .lede {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 580px;
+  margin: 0 auto 26px;
+}
+
+/* Price Box */
+.price-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.discount-badge {
+  display: inline-block;
+  background: #EAF7EE;
+  color: #1E7E34;
+  border: 1px solid #BFE5C9;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+.price-tag {
+  display: inline-flex;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: center;
+}
+
+.was {
+  text-decoration: line-through;
+  color: #A39B8B;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.now {
+  font-family: 'Fraunces', serif;
+  font-size: 34px;
+  color: var(--gold);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Call to Action Button */
+.cta-button-wrap {
+  margin: 10px 0 16px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  background: var(--gold-gradient);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 18px;
+  padding: 18px 28px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px var(--gold-glow), 0 2px 4px rgba(0,0,0,0.05);
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(197, 152, 40, 0.4);
+  background: linear-gradient(135deg, #F8DC99 0%, #D8AA3B 50%, #A87E1E 100%);
+}
+
+.cta svg {
+  transition: transform 0.2s ease;
+}
+
+.cta:hover svg {
+  transform: translateX(4px);
+}
+
+.trust {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.trust svg {
+  color: var(--gold);
+  flex-shrink: 0;
+}
+
+/* Hero Media Display */
+.hero-media-wrap {
+  margin: 36px auto 16px;
+  position: relative;
+}
+
+.hero-media-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  box-shadow: var(--shadow-lg), 0 0 0 1px rgba(0,0,0,0.06);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.hero-media-card:hover {
+  transform: translateY(-3px);
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius-lg) - 4px);
+  display: block;
+  object-fit: cover;
+}
+
+.floating-pill {
+  position: absolute;
+  bottom: 28px;
+  left: 28px;
+  background: rgba(9, 10, 23, 0.85);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-md);
+}
+
+.floating-pill .pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #2ECC71;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #2ECC71;
+}
+
+/* Pain Section ("You know the feeling") */
+.section-pain {
+  background: #FAF7F2;
+}
+
+.section-pain h2 {
+  font-size: 32px;
+  margin-bottom: 24px;
+}
+
+.pain-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.pain-card {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease;
+}
+
+.pain-card:hover {
+  border-color: #D4C7B5;
+}
+
+.pain-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #FDF4E5;
+  color: #B57F18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pain-card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.pain-highlight-box {
+  background: #FFFDF9;
+  border-left: 4px solid var(--gold);
+  border-top: 1px solid #EFE8DA;
+  border-right: 1px solid #EFE8DA;
+  border-bottom: 1px solid #EFE8DA;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 22px 24px;
+  margin: 28px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.pain-highlight-box p {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 0;
+  font-family: 'Fraunces', serif;
+}
+
+.pain-closing-note {
+  font-size: 17px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+/* System Breakdown Section (Dark Theme) */
+.system-intro {
+  margin-bottom: 36px;
+}
+
+.system-intro h2 {
+  font-size: 34px;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.system-preview-showcase {
+  margin: 32px 0 40px;
+  background: var(--navy-dark);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-dark);
+}
+
+.system-preview-showcase img {
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius-lg) - 6px);
+  display: block;
+}
+
+.system-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.system-item-card {
+  background: rgba(23, 27, 56, 0.65);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-md);
+  padding: 24px 22px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.system-item-card:hover {
+  background: rgba(23, 27, 56, 0.95);
+  border-color: rgba(197, 152, 40, 0.45);
+  transform: translateY(-2px);
+}
+
+.item-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.item-badge-number {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--gold-light);
+  background: rgba(197, 152, 40, 0.15);
+  border: 1px solid rgba(197, 152, 40, 0.35);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+.system-item-card h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.system-item-card p {
+  color: #C7C2B7;
+  font-size: 15.5px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Why It's Undated Section */
+.undated-box {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.undated-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  background: #FDF8EC;
+  border: 1px solid #ECDAB5;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.undated-box h2 {
+  font-size: 32px;
+  margin-bottom: 18px;
+}
+
+.undated-box p {
+  font-size: 17.5px;
+  line-height: 1.7;
+}
+
+/* Cost Breakdown / What went into this */
+.cost-card {
+  background: rgba(23, 27, 56, 0.7);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-lg);
+  padding: 36px 30px;
+  box-shadow: var(--shadow-dark);
+}
+
+.cost-card h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.cost-intro {
+  font-size: 16.5px;
+  margin-bottom: 24px;
+  color: #DDD7CE !important;
+}
+
+table.cost-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0 28px;
+  font-size: 16px;
+}
+
+table.cost-table td {
+  padding: 14px 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #E2DDD3;
+}
+
+table.cost-table td:last-child {
+  text-align: right;
+  color: #F5DE9C;
+  font-weight: 600;
+  font-family: 'Fraunces', serif;
+}
+
+table.cost-table tr.total td {
+  border-top: 2px solid var(--gold);
+  border-bottom: none;
+  font-weight: 700;
+  font-size: 19px;
+  color: #FFFFFF;
+  padding-top: 18px;
+}
+
+table.cost-table tr.total td:last-child {
+  color: var(--gold-light);
+  font-size: 22px;
+}
+
+.cost-contrast {
+  background: rgba(9, 10, 23, 0.6);
+  border: 1px solid var(--navy-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin: 24px 0;
+  text-align: center;
+}
+
+.cost-contrast p {
+  margin-bottom: 8px;
+}
+
+.cost-contrast .deal-statement {
+  font-size: 20px;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cost-contrast .deal-statement strong {
+  color: var(--gold-light);
+  font-size: 24px;
+}
+
+/* Testimonials Section */
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.testimonials-header h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.transparency-note {
+  font-size: 14px;
+  color: var(--ink-muted);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.tgrid {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.tcard {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.tcard-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #F3EBD8;
+  color: #8C6615;
+  border: 1px solid #E2D3AF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.tcard-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tname {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.tmeta {
+  font-size: 12.5px;
+  color: var(--ink-muted);
+}
+
+.star-rating {
+  color: var(--gold);
+  font-size: 13px;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+}
+
+.tcard p {
+  color: #8A8172;
+  font-style: italic;
+  margin: 0;
+  font-size: 14.5px;
+}
+
+.early-adopter-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Guarantee Section */
+.guarantee-wrap {
+  padding: 20px 0 40px;
+}
+
+.guarantee {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FDFBF7 100%);
+  border: 1px solid #DFD5C2;
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+}
+
+.guarantee-badge-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(197, 152, 40, 0.3));
+}
+
+.guarantee h2 {
+  font-size: 30px;
+  margin-bottom: 8px;
+  color: var(--ink);
+}
+
+.guarantee p {
+  font-size: 17px;
+  max-width: 520px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* FAQ Section */
+.faq-section {
+  padding: 60px 0;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.faq-header h2 {
+  font-size: 32px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: #FFFFFF;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.faq-item:hover {
+  border-color: #D6CAB6;
+}
+
+.faq-item h3 {
+  color: #9E7418;
+  font-size: 18px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.faq-item h3::before {
+  content: "Q.";
+  font-weight: 800;
+  font-family: 'Fraunces', serif;
+  color: var(--gold);
+}
+
+.faq-item p {
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* Final Closing Section */
+.closing-section {
+  text-align: center;
+  padding: 80px 0 90px;
+}
+
+.closing-section .brand-logo-small {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 16px rgba(197, 152, 40, 0.4);
+}
+
+.closing-section h2 {
+  font-size: 38px;
+  margin-bottom: 14px;
+}
+
+.closing-section p.sub {
+  font-size: 18px;
+  max-width: 520px;
+  margin: 0 auto 24px;
+  color: #D0C9BD !important;
+}
+
+.closing-section .price-tag {
+  margin-bottom: 24px;
+}
+
+.closing-section .was {
+  color: #8C8474;
+}
+
+.closing-section .now {
+  color: var(--gold-light);
+  font-size: 38px;
+}
+
+.closing-section .trust {
+  color: #ADA495;
+  margin-top: 14px;
+}
+
+/* Footer */
+footer {
+  padding: 36px 0;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.footer-brand img {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+}
+
+/* Responsive */
+@media (min-width: 640px) {
+  .tgrid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .hero h1 {
+    font-size: 48px;
+  }
+  .system-grid {
+    grid-template-columns: 1fr;
+  }
+  .guarantee {
+    flex-direction: row;
+    text-align: left;
+    gap: 32px;
+  }
+  .guarantee-badge-img {
+    width: 140px;
+    height: 140px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Header Navigation -->
+<header class="header-nav">
+  <div class="nav-container">
+    <a href="#" class="brand-badge" aria-label="SC Multibiz Home">
+      <img src="assets/scm-logo.jpg" alt="SCM - SC Multibiz Logo" class="brand-logo-img">
+      <div class="brand-text">
+        <span class="brand-title">Sales Closer Planner</span>
+        <span class="brand-sub">SC MULTIBIZ</span>
+      </div>
+    </a>
+    <a href="#buy" class="nav-cta">
+      Get Planner · $8.99
+    </a>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="section hero">
+  <div class="wrap">
+    <div class="kicker-pill">Sales Closer Planner Made Easy</div>
+    <h1>Stop losing deals you <span class="highlight">already earned.</span></h1>
+    <p class="lede">An undated daily planner built for one job: keeping every call, follow-up, and commission in front of you so nothing slips through the cracks.</p>
+    
+    <div class="price-container">
+      <span class="discount-badge">Save 40% Limited Launch Offer</span>
+      <div class="price-tag">
+        <span class="was">$14.99</span>
+        <span class="now">$8.99</span>
+      </div>
+    </div>
+    
+    <div class="cta-button-wrap">
+      <a href="#buy" class="cta">
+        Get My Planner
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+    
+    <p class="trust">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      Secure checkout. Instant digital delivery.
+    </p>
+  </div>
+
+  <!-- Hero Product Photo -->
+  <div class="wrap-wide">
+    <div class="hero-media-wrap">
+      <div class="hero-media-card">
+        <img src="assets/hero_planner_desk.jpg" alt="Sales Closer Planner open on executive desk next to incoming call setup" class="hero-image">
+        <div class="floating-pill">
+          <span class="pulse-dot"></span>
+          <span>Undated Sales Closer Daily Layout</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pain Section -->
+<section class="section section-pain">
+  <div class="wrap">
+    <h2>You know the feeling.</h2>
+    
+    <div class="pain-cards">
+      <div class="pain-card">
+        <div class="pain-icon">✕</div>
+        <p>You close a deal on Tuesday and by Friday you can't remember who you promised a follow-up call to.</p>
+      </div>
+      
+      <div class="pain-card">
+        <div class="pain-icon">✕</div>
+        <p>You've got leads in your notes app, a few scribbled on a sticky note, one you're pretty sure you forgot entirely.</p>
+      </div>
+      
+      <div class="pain-card">
+        <div class="pain-icon">✕</div>
+        <p>Your CRM tracks the company's pipeline. It was never built to track <em>you</em> — your mornings, your MITs, the objection you keep hearing and still don't have a clean answer for.</p>
+      </div>
+    </div>
+
+    <div class="pain-highlight-box">
+      <p>You know your close rate went up last month. You just can't say by how much, or why.</p>
+    </div>
+    
+    <p class="pain-closing-note">That gap between "I closed some deals" and "I know exactly what's working" is where commission gets left on the table.</p>
+  </div>
+</section>
+
+<!-- The System (Dark Section) -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="system-intro">
+      <h2>A page a day. That's the whole system.</h2>
+    </div>
+
+    <!-- Product Layout Showcase -->
+    <div class="system-preview-showcase">
+      <img src="assets/planner_pages_preview.jpg" alt="Interior pages of Sales Closer Planner: Daily Sales Sheet, Objection Handling Matrix, and Commission Tracker">
+    </div>
+
+    <div class="system-grid">
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">01</span>
+          <h3>Today's 3 Money Tasks</h3>
+        </div>
+        <p>Three lines, filled in before anything else. The calls and follow-ups that actually move a deal, not the busywork that feels productive but isn't.</p>
+      </div>
+
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">02</span>
+          <h3>Leads to contact today</h3>
+        </div>
+        <p>Name, time, outcome, follow-up — five leads a day, tracked in one place instead of scattered across apps.</p>
+      </div>
+
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">03</span>
+          <h3>Objection heard, your reframe</h3>
+        </div>
+        <p>Write down what stopped the sale and how you'd answer it next time. After a few weeks this page alone becomes your personal playbook.</p>
+      </div>
+
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">04</span>
+          <h3>Deals closed and commission</h3>
+        </div>
+        <p>Every close logged the same day, with the number attached, so your income stops living only in your head.</p>
+      </div>
+
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">05</span>
+          <h3>Weekly review, every five working days</h3>
+        </div>
+        <p>Calls, closes, close rate, and one honest question: what's actually working this week.</p>
+      </div>
+
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">06</span>
+          <h3>Quarterly goal tracker</h3>
+        </div>
+        <p>Set the number at the start of each quarter, watch it get closer with every page.</p>
+      </div>
+
+      <div class="system-item-card">
+        <div class="item-header">
+          <span class="item-badge-number">07</span>
+          <h3>Your own scripts page</h3>
+        </div>
+        <p>One page to write your best opener, your closing questions, and your price objection handler — the lines that work for you, not a script you copied.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why It's Undated -->
+<section class="section">
+  <div class="wrap">
+    <div class="undated-box">
+      <span class="undated-badge">Zero Guilt Architecture</span>
+      <h2>Why it's undated</h2>
+      <p>Start it in March. Start it after a slow week. Miss three days and lose nothing.</p>
+      <p>Most planners punish you for falling behind by staring back at you with dates you didn't use. This one just waits for you to pick it back up.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Cost Transparency (Dark Section) -->
+<section class="section dark">
+  <div class="wrap">
+    <div class="cost-card">
+      <h2>What went into this</h2>
+      <p class="cost-intro">This wasn't thrown together in an afternoon. Here's roughly where the cost went:</p>
+      
+      <table class="cost-table">
+        <tr><td>Layout and page design</td><td>$120</td></tr>
+        <tr><td>Print testing and proofing</td><td>$60</td></tr>
+        <tr><td>Cover design</td><td>$45</td></tr>
+        <tr><td>Editing and formatting</td><td>$40</td></tr>
+        <tr><td>Research into what closers actually needed</td><td>$35</td></tr>
+        <tr class="total"><td>Total</td><td>$300</td></tr>
+      </table>
+
+      <div class="cost-contrast">
+        <p>None of that is your problem to pay for. You're not paying $300. You're not even paying half that.</p>
+        <p class="deal-statement"><strong>Today it's $8.99</strong> — less than the coffee you'll buy while making tomorrow's calls.</p>
+      </div>
+
+      <div class="cta-button-wrap" style="text-align: center;">
+        <a href="#buy" class="cta">Get My Planner for $8.99</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section">
+  <div class="wrap">
+    <div class="testimonials-header">
+      <h2>Real feedback, added as it comes in</h2>
+      <p class="transparency-note">This planner is newly launched. Testimonials below will be filled in with real buyer quotes as reviews come in — nothing here is invented.</p>
+    </div>
+    
+    <div class="tgrid">
+      <div class="tcard">
+        <div class="tcard-top">
+          <div class="avatar">—</div>
+          <div class="tcard-info">
+            <div class="tname">Reviewer name</div>
+            <div class="tmeta">City · rating</div>
+          </div>
+        </div>
+        <div class="star-rating">★★★★★</div>
+        <p>Space reserved for your first real review.</p>
+        <span class="early-adopter-badge">Launch Member #1</span>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-top">
+          <div class="avatar">—</div>
+          <div class="tcard-info">
+            <div class="tname">Reviewer name</div>
+            <div class="tmeta">City · rating</div>
+          </div>
+        </div>
+        <div class="star-rating">★★★★★</div>
+        <p>Space reserved for your second real review.</p>
+        <span class="early-adopter-badge">Launch Member #2</span>
+      </div>
+
+      <div class="tcard">
+        <div class="tcard-top">
+          <div class="avatar">—</div>
+          <div class="tcard-info">
+            <div class="tname">Reviewer name</div>
+            <div class="tmeta">City · rating</div>
+          </div>
+        </div>
+        <div class="star-rating">★★★★★</div>
+        <p>Space reserved for your third real review.</p>
+        <span class="early-adopter-badge">Launch Member #3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Guarantee Section -->
+<section class="guarantee-wrap">
+  <div class="wrap">
+    <div class="guarantee">
+      <img src="assets/guarantee_badge.jpg" alt="100% Money-Back Guarantee Seal" class="guarantee-badge-img">
+      <div>
+        <h2>No-risk guarantee</h2>
+        <p>Go through the planner. If you feel it genuinely wasn't worth what you paid, contact me and I'll refund you in full. No hoops.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section faq-section">
+  <div class="wrap">
+    <div class="faq-header">
+      <h2>Questions</h2>
+    </div>
+    
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>How do I get the planner after paying?</h3>
+        <p>It's delivered straight to your email the moment payment goes through.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>What if it's not for me?</h3>
+        <p>You're covered by the guarantee above — just reach out.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is my payment safe?</h3>
+        <p>Checkout runs through Paystack, the same processor used by thousands of businesses across Africa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final Buy / Closing Section -->
+<section class="section dark closing-section" id="buy">
+  <div class="wrap">
+    <img src="assets/scm-logo.jpg" alt="SCM Logo" class="brand-logo-small">
+    <h2>Start tomorrow with a clear plan.</h2>
+    <p class="sub">One page a day. No wasted pages. No more guessing where your commission went.</p>
+    
+    <div class="price-container">
+      <span class="discount-badge" style="background: rgba(46, 204, 113, 0.15); color: #4EEDA4; border-color: rgba(46, 204, 113, 0.3);">Launch Special • Instant Access</span>
+      <div class="price-tag">
+        <span class="was">$14.99</span>
+        <span class="now">$8.99</span>
+      </div>
+    </div>
+
+    <div class="cta-button-wrap">
+      <a href="#" class="cta" onclick="alert('Proceeding to secure checkout via Paystack...'); return false;">
+        Get My Planner Now
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+
+    <p class="trust">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+      Secure checkout via Paystack · Instant delivery
+    </p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-brand">
+      <img src="assets/scm-logo.jpg" alt="SCM Logo">
+      <span>SC MULTIBIZ</span>
+    </div>
+    <p style="margin: 0; font-size: 13px; color: var(--ink-muted);">Sales Closer Planner Made Easy — All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
